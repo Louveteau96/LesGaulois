@@ -11,6 +11,7 @@ public class Chef {
 		this.force = force;
 		this.effetPotion = effetPotion;
 		this.village = village;
+		
 	}
 	
 	public String getNom() {
@@ -18,7 +19,7 @@ public class Chef {
 	}
 	
 	public void parler(String texte) {
-		System.out.println(prendreParole() + "Â«" + texte + "Â»");
+		System.out.println(prendreParole() + "«" + texte + "»");
 	}
 	
 	private String prendreParole() {
@@ -26,9 +27,11 @@ public class Chef {
 	}
 	
 	public void frapper(Romain romain) {
-		System.out.println(nom + " envoie un grand coup dans la mÃ¢choire de " +
+		System.out.println(nom + " envoie un grand coup dans la mâchoire de " +
 		romain.getNom());
 		romain.recevoirCoup(force / 3);
 	}
+	
+	
 	
 }
