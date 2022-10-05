@@ -14,8 +14,8 @@ public class Druide {
 		this.effetPotionMin = effetPotionMin;
 		this.effetPotionMax = effetPotionMax;
 		parler("Bonjour, je suis le druide " + nom + 
-				" et ma potion peut aller d'une force "
-				+ effetPotionMin + " à "
+				" et ma potion peut aller d'une force de "
+				+ effetPotionMin + " Ã  "
 				+ effetPotionMax + ".");
 	}
 	public String getNom() {
@@ -26,7 +26,7 @@ public class Druide {
 	}
 	
 	public void parler(String texte) {
-		System.out.println(prendreParole() + "« " + texte + "»");
+		System.out.println(prendreParole() + "Â« " + texte + "Â»");
 	}
 	
 	private String prendreParole() {
@@ -34,31 +34,29 @@ public class Druide {
 	}
 	public void preparerPotion() {
 		Random  rand = new Random();
-		this.forcePotion = effetPotionMin + rand.nextInt(effetPotionMax);
+		this.forcePotion = rand.nextInt(effetPotionMin, effetPotionMax);
 		if (forcePotion > 7) {
-			parler("J'ai préparé une super potion de force " 
+			parler("J'ai prÃ©parÃ© une super potion de force " 
 			+ forcePotion);
 		} else {
-			parler("Je n'ai pas trouvé tous les ingrédients,"
-					+ " ma potion est seulement de force" + forcePotion);
+			parler("Je n'ai pas trouvÃ© tous les ingrÃ©dients,"
+					+ " ma potion est seulement de force " + forcePotion);
 
 		}
 	}
 	
-	public void booster(Gaulois gauloi) {
-		if (gauloi.getNom().equals("Obelix")) {
-			parler("Non, Obélix !... Tu n'auras pas de potion magique !");
+	public void booster(Gaulois gaulois) {
+		if (gaulois.getNom().equals("ObÃ©lix")) {
+			this.parler("Non, ObÃ©lix !... Tu nâ€™auras pas de potion magique !");
 		}else {
-			gauloi.boirePotion(this.forcePotion);
+			gaulois.boirePotion(this.forcePotion);
 		}
 	}
-	
 	public static void main(String[] args) {
-		Druide panormaix = new Druide ("Panoramix",5,10);
-		panormaix.preparerPotion();
+		Druide panoramix = new Druide ("Panoramix",5,10);
+		panoramix.preparerPotion();
 		Gaulois obelix = new Gaulois ("Obelix",5);
-		panormaix.preparerPotion();
-		booster(obelix);
+		panoramix.booster(obelix);
 	}
 	
 }
