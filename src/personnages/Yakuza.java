@@ -1,31 +1,76 @@
 package personnages;
 
 public class Yakuza extends Humain {
-	private String clan;
+
 	private int reputation;
-
+	private String clan;
 	
-
-	public Yakuza(String nom, String boissonFavorite, int argent, String clan, int reputation) {
-		super(nom, boissonFavorite, argent);
-
+	public Yakuza(String nom, String boisson, int argent, String clan) {
+		super(nom, boisson, argent);
+		this.clan = clan;
+		this.reputation = 0;
 	}
+	
+	public int getReputation() {
+		return reputation;
+	}
+	
+	public String getClan() {
+		return clan;
+	}
+	
+	@Override
+	public void direBonjour() {
+		super.direBonjour();
+		String texte = "Mon clan est celui de ";
+		texte+=this.getClan() + ".";
+		parler(texte);
+		}
 	
 	public void extorquer(Commercant victime) {
-		int argent = victime.getArgent();
-		this.gagnerArgent(argent);
-		
-		
-		String texte = "Tiens tiens tiens, ne serait-ce pas un faible marchand qui passe par là ?";
+		this.reputation++;
+		int sous = victime.getArgent();
+		String texte = "Tiens, tiens, ne serait-ce pas un faible marchand qui passe par là?";
 		parler(texte);
-		String nomVictime = victime.getnom();
-		texte = nomVictime + ", si tu tiens à la vie donne moi ta bourse";
-		parler(texte);		
+		texte = victime.getNom();
+		texte += ", si tu tiens à la vie donne moi ta bourse!";
+		parler(texte);
 		victime.seFaireExtorquer();
-		texte = "J'ai piqué les " + argent + " sous de " + nomVictime + ", ce qui me fait " 
-		+ this.getArgent() + " dans ma poche. Hi ! Hi ! Hi !";
+		this.gagnerArgent(sous);
+		texte = "J'ai piqué les ";
+		texte += sous;
+		texte += " de ";
+		texte += victime.getNom();
+		texte += " ce qui me fait ";
+		texte += this.getArgent();
+		texte += " sous dans ma poche. Hi! Hi!";
 		parler(texte);
-		this.reputation += 1;
-	}
+		
+		}
 
+	public void perdre() {
+		String texte = "J'ai perdu mon duel et mes ";
+		texte += this.getArgent();
+		texte += " sous, snif... J'ai déshonoré le clan de ";
+		texte += this.getClan();
+		texte += ".";
+		parler(texte);
+		this.perdreArgent(getArgent());
+		if (reputation != 0) {
+			this.reputation--;
+		}
+	}
+	
+	public void gagner(Ronin ronin) {
+		String texte = "Ce ronin pensait vraiment battre ";
+		texte += this.getNom();
+		texte += " du clan de ";
+		texte += this.getClan();
+		texte += "? Je l'ai dépouillé de ses ";
+		texte += ronin.getArgent();
+		texte += " sous.";
+		parler(texte);
+		reputation++;
+		ronin.perdreArgent(getArgent());
+	}
 }

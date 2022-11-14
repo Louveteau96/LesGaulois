@@ -1,28 +1,43 @@
 package personnages;
 
 public class Ronin extends Humain {
-	private int honneur = 1;
 
-	public Ronin(String nom, String boissonFavorite, int argent) {
-		super(nom, boissonFavorite, argent);
-		
+	private int honneur;
+	
+	public Ronin(String nom, String boisson, int argent) {
+		super(nom, boisson, argent);
+		this.honneur=1;
 	}
 	
 	public void donner(Commercant beneficiaire) {
-		int don = this.getArgent()/10;
-		this.perdreArgent(don);
-		beneficiaire.gagnerArgent(don);
-		String texte = beneficiaire.getnom() + " prends ces " + don + " sous.";
-		this.parler(texte);
-		beneficiaire.recevoir(don);
+		int sous = this.getArgent()/10;
+		String texte = beneficiaire.getNom();
+		texte += " prends ces ";
+		texte += sous;
+		texte += " sous.";
+		parler(texte);
+		beneficiaire.recevoir(sous);
+		this.perdreArgent(sous);
 	}
 	
-	public int perdre(int argent) {
-		argent = this.getArgent();
-		this.perdreArgent(argent);
-		String texte = "J'ai perdu contre ce yakuza mon honneur et ma bourse en ont pris un coup";
-		this.parler(texte);
-		return argent;
+	public void provoquer(Yakuza yakuza) {
+		String texte = "Je t'ai retrouvé vermine, tu vas payer pour ce que tu as fait à ce pauvre marchand!";
+		parler(texte);
+		if (this.honneur*2 >= yakuza.getReputation()) {
+			honneur++;
+			texte = "Je t'ai eu petit yakuza!";
+			parler(texte);
+			this.gagnerArgent(yakuza.getArgent());
+			yakuza.perdre();
+		} else {
+			texte = "J'ai perdu contre ce yakuza, mon honneur et ma bourse en ont pris un coup.";
+			parler(texte);
+			this.perdreArgent(getArgent());
+			yakuza.gagner(this);
+			if (honneur > 0) {
+				honneur--;
+			}
+		}
 	}
 
 }

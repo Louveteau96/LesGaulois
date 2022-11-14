@@ -4,20 +4,20 @@ public class Commercant extends Humain {
 
 	public Commercant(String nom, int argent) {
 		super(nom, "Thé", argent);
-				
 	}
-	
-	
-	public void seFaireExtorquer(){
-		String texte = "J'ai tout perdu le monde est trop injuste.";
+
+	public void seFaireExtorquer() {
 		this.perdreArgent(getArgent());
+		String texte = "J'ai tout perdu! Le monde est trop injuste";
 		parler(texte);
 	}
 	
 	public void recevoir(int argent) {
-		this.gagnerArgent(argent);
-		String texte = argent + " sous ! Je te remercie généreux donnateur";
+		String texte = "";
+		texte += argent;
+		texte += " sous! Je te remerci généreux donnateur!";
 		parler(texte);
+		this.gagnerArgent(argent);
 	}
-
+		
 }
