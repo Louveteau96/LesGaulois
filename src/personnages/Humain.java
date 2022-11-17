@@ -6,8 +6,8 @@ public class Humain {
 	private String nom;
 	private String boisson;
 	private int argent;
-	private int nbrconnaissances = 0;
-	private Humain[] memoire;
+	protected int nbrconnaissances = 0;
+	protected Humain[] memoire;
 
 	public Humain(String nom,String boisson, int argent) {
 		this.nom = nom;
