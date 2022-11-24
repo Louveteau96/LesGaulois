@@ -52,16 +52,17 @@ public class Traitre extends Samourai {
 	
 	
 	public void faireLeGentil (){
-		if (this.nbrconnaissances < 1) {
+		if (this.getNbrConnaissances() < 1) {
 			String texte = "Je ne peux faire ami ami avec personne car je ne connais personne ! Snif.";
 			this.parler(texte);
 		}
 		else {
+			String nomTraitre = this.getNom();
 			
 			//On trouve l'ami à qui donner l'argent :
 			
 			Random rand = new Random();
-			int int_random = rand.nextInt(this.nbrconnaissances - 1);
+			int int_random = rand.nextInt(this.getNbrConnaissances() - 1);
 			Humain ami = this.memoire[int_random];
 			
 			
@@ -71,7 +72,7 @@ public class Traitre extends Samourai {
 			
 			//On calcul la valeur du don :
 			
-			int don = this.getArgent() * (1/20);
+			int don = this.getArgent() /20;
 			
 			//------------------------------------------------------------------------------------
 			
@@ -92,6 +93,7 @@ public class Traitre extends Samourai {
 				// Il parle à l'ami
 			
 			texte = "Bonjour l'ami ! Je voudrais vous aider en vous donnant " + don + " sous.";
+			this.parler(texte);
 			
 			//------------------------------------------------------------------------------------
 			
@@ -108,7 +110,7 @@ public class Traitre extends Samourai {
 			
 			//Remerciement
 			
-			String nomTraitre = this.getNom();
+			
 			texte = "Merci " + nomTraitre + ". Vous êtes quelqu'un de bien.";
 			ami.parler(texte);
 			
